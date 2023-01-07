@@ -1,7 +1,17 @@
 import React from "react"
 
 export default function Sidebar(props) {
-    const noteElements = props.notes.map((note, index) => (
+    const noteElements = props.notes.map((note, index) => {
+        let snippet = []
+        
+        for (let i = 0; i < note.body.length; i++) {
+            if (note.body[i] == "\n") {
+                break
+            }
+            snippet.push(note.body[i])
+        }
+        
+        return (
         <div key={note.id}>
             <div
                 
@@ -10,10 +20,12 @@ export default function Sidebar(props) {
                 }`}
                 onClick={() => props.setCurrentNoteId(note.id)}
             >
-                <h4 className="text-snippet">Note {index + 1}</h4>
+                <h4 className="text-snippet">
+                    {snippet}
+                </h4>
             </div>
         </div>
-    ))
+    )})
 
     return (
         <section className="pane sidebar">
